@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body ng-app="cocApp">
+  <div class="container">
+    <div class="divTable">
+        <table ng-controller="mainCtrl">
+          <tr>
+            <th>Num</th>
+            <th>Player</th>
+            <th>Role</th>
+            <th>Town Hall</th>
+            <th>Member since</th>
+          </tr>
+          <tr ng-repeat="member in members">
+            <td>{{member.name}}</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>25/11/2016</td>
+          </tr>
+        </table>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+<script type="text/javascript" src="js/coc.js"></script>
+</html>
