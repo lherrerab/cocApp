@@ -1,116 +1,97 @@
 angular.module('cocApp', [])
-.factory('callService',function($http, $q){
-  return {
-    getData: function(url) {
-      return new Promise(function(resolve, reject) {
-        var xmlRequest = new XMLHttpRequest();
-        xmlRequest.open('GET', url);
-        xmlRequest.onload = function() {
-          if(xmlRequest.status == 200) {
-            resolve(xmlRequest.response);
-          }
-          else {
-            reject(Error(xmlRequest.statusText));
-          }
-        };
-        xmlRequest.onerror = function() {
-          reject(Error("Network Error"));
-        };
-        xmlRequest.send();
-      });
-    }
-  }
-})
-.controller('mainCtrl', function($scope, callService){
+.controller('mainCtrl', function($scope, $http){
 
-  $scope.var = "Hello!";
-  $scope.members = [{name:'Leo'}];
+  $scope.warMembers = [];
+
+  $scope.addWarMember = function(player,th){
+    var warMember = {'name':player,'th':th};
+    $scope.warMembers.push(warMember);
+  }
+
+  $scope.removeWarMember = function(index){
+    $scope.warMembers.splice(index,1);
+  }
 
   $scope.receiveClanTable = function () {
-    $scope.members = [{name:'Dante'}];
     var params = "service=getClanTable";
-    console.log('receiving...');
     var url = 'http://localhost/CoC/cocAPI.php?'+params;
-    callService.getData(url).then(function(response) {
-      $scope.members =(JSON.parse(response)).data;
-      console.log($scope.members);
-    },function(error) {
-      console.log(error);
-    });
+    /*$scope.members = [
+        {
+          clanRank: 1,
+          donations: 1713,
+          donationsReceived: 606,
+          name: "JuanDa",
+          role: "leader",
+          th: 9
+        },
+        {
+          clanRank: 2,
+          donations: 586,
+          donationsReceived: 60,
+          name: "king frankie",
+          role: "member",
+          th: 9
+        },
+        {
+          clanRank:3,
+          donations:961,
+          donationsReceived:459,
+          name:"Dreymax",
+          role:"coLeader",
+          th:7
+        },
+        {
+          clanRank:4,
+          donations:218,
+          donationsReceived:41,
+          name:"⏪Blade⏩",
+          role:"admin",
+          th:9
+        },
+        {
+          clanRank:5,
+          donations:24,
+          donationsReceived:191,
+          name:"THE PRINCE",
+          role:"member",
+          th:8
+        },
+        {
+          clanRank:6,
+          donations:22,
+          donationsReceived:50,
+          name:"Zekrom",
+          role:"member",
+          th:8
+        },
+        {
+          clanRank:7,
+          donations:130,
+          donationsReceived:147,
+          name:"Abejorge",
+          role:"member",
+          th:9
+        },
+        {
+          clanRank:8,
+          donations:488,
+          donationsReceived:499,
+          name:"theking",
+          role:"admin",
+          th:8
+        }];*/
+    $http.get(url)
+        .then(
+          function(response) {
+            console.log(response);
+            $scope.members = response.data.data;
+          },
+          function(error) {
+            console.log(error);
+          }
+        );
   }
 
   $scope.receiveClanTable();
 
 });
-
-
-/*function sendRequest(conf) {
-    return new Promise(function(resolve, reject) {
-      var xmlRequest = new XMLHttpRequest();
-      xmlRequest.open('GET', conf.url);
-
-      xmlRequest.onload = function() {
-        if(xmlRequest.status == 200) {
-          resolve(xmlRequest.response);
-        }
-        else {
-          reject(Error(xmlRequest.statusText));
-        }
-      };
-
-      xmlRequest.onerror = function() {
-        reject(Error("Network Error"));
-      };
-
-      xmlRequest.send();
-    });
-}
-
-function showMembers(){
-  console.log(members);
-  var allMembers = members.data;
-  for(i = 0; i < allMembers.length; i++) {
-    tr = document.createElement("tr");
-    //for(j = 0; j < allMembers[i].length; j++) {
-      td = document.createElement("td");
-      text = document.createTextNode(allMembers[i].tag);
-      td.appendChild(text);
-      tr.appendChild(td);
-    }
-    table.appendChild(tr);
-  }
-  divTable.appendChild(table);
-}
-
-function receiveClanInfo() {
-  var params = "service=getClanInfo";
-  sendRequest({url:'http://localhost/CoC/cocAPI.php?'+params}).then(function(response) {
-    var jSONResponse =JSON.parse(members);
-    console.log(jSONResponse);
-  },function(error) {
-    console.log(error);
-  });
-}
-
-function receiveClanMembers() {
-  var params = "service=getClanMembers";
-  sendRequest({url:'http://localhost/CoC/cocAPI.php?'+params}).then(function(response) {
-    var jSONResponse =JSON.parse(response);
-    console.log(jSONResponse);
-  },function(error) {
-    console.log(error);
-  });
-}
-
-function receiveClanTable() {
-  var params = "service=getClanTable";
-  console.log('receiving...');
-  sendRequest({url:'http://localhost/CoC/cocAPI.php?'+params}).then(function(response) {
-    members =JSON.parse(response);
-    showMembers();
-  },function(error) {
-    console.log(error);
-  });
-}
-
-receiveClanTable();*/

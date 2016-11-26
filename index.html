@@ -4,27 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans+Condensed:300" rel="stylesheet">
   <title>Document</title>
 </head>
 <body ng-app="cocApp">
-  <div class="container">
+  <div class="container" ng-controller="mainCtrl">
     <div class="divTable">
-        <table ng-controller="mainCtrl">
+        <table class="tbMembers">
           <tr>
-            <th>Num</th>
-            <th>Player</th>
-            <th>Role</th>
-            <th>Town Hall</th>
-            <th>Member since</th>
+            <th style="width:5%;">Order</th>
+            <th style="width:20%;">Player</th>
+            <th style="width:10%;">Role</th>
+            <th style="width:10%;">Town Hall</th>
+            <th style="width:15%;">Donations</th>
+            <th style="width:20%;">Donations Received</th>
+            <th style="width:10%;">Joined on</th>
+            <th style="width:10%;">Options</th>
           </tr>
           <tr ng-repeat="member in members">
+            <td>{{member.clanRank}}</td>
             <td>{{member.name}}</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td>{{member.role}}</td>
+            <td>{{member.th}}</td>
+            <td>{{member.donations}}</td>
+            <td>{{member.donationsReceived}}</td>
             <td>25/11/2016</td>
+            <td>
+              <button type="button" ng-click="addWarMember(member.name,member.th)">Add</button>
+            </td>
           </tr>
         </table>
+    </div>
+    <div class="divWar">
+      <table class="tbWar">
+        <tr>
+          <th>Player ({{warMembers.length}})</th>
+          <th>Town Hall </th>
+        </tr>
+        <tr ng-repeat="warMember in warMembers track by $index">
+          <td>{{warMember.name}}</td>
+          <td>{{warMember.th}}</td>
+          <td>
+            <button ng-click="removeWarMember($index)">X</button>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </body>

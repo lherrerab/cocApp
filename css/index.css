@@ -1,0 +1,38 @@
+.container {
+  width: 100%;
+  font-size: 0;
+}
+
+.divTable {
+  width: 60%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.divWar {
+  width: 40%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.tbMembers {
+  width: 100%;
+  margin: auto;
+}
+
+.tbWar {
+  width: 60%;
+  margin: auto;
+}
+
+th {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1vw;
+}
+
+td {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1vw;
+  text-align: center;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
