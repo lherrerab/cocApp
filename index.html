@@ -24,7 +24,19 @@
               <th colspan="8">PLAYERS</th>
             </tr>
             <tr>
-              <th style="width:5%;">Order</th>
+              <td colspan="8" style="text-align:left;">
+                <label>Choose</label>
+                <select ng-model="updateSelected">
+                  <option value="1">Yellow Flag</option>
+                  <option value="2">Red Flag</option>
+                  <option value="3">Add to War</option>
+                </select>
+                <button type="button" ng-click="updateFlags()">Update</button>
+              </td>
+            </tr>
+            <tr>
+              <th style="width:2%;">S</th>
+              <th style="width:3%;">Order</th>
               <th style="width:20%;">Player</th>
               <th style="width:10%;">Role</th>
               <th style="width:10%;">Town Hall</th>
@@ -34,6 +46,7 @@
               <th style="width:10%;">Options</th>
             </tr>
             <tr ng-repeat="member in members">
+              <td><input type="checkbox" ng-changed></td>
               <td>{{$index+1}}</td>
               <td>{{member.name}}</td>
               <td>{{member.role}}</td>

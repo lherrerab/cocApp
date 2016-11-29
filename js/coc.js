@@ -1,7 +1,8 @@
-angular.module('cocApp', [])
+angular.module('cocApp')
 .controller('mainCtrl', function($scope, $http){
 
   $scope.warMembers = [];
+  $scope.boxUpdates = [];
 
   $scope.addWarMember = function(tag,player,th){
     var warMember = {'tag':tag,'name':player,'th':th};
@@ -55,6 +56,14 @@ angular.module('cocApp', [])
     if(confirm("Do you want to delete candidates?")) {
       $scope.warMembers = [];
     }
+  }
+
+  $scope.updateFlags = function(value){
+    //console.log($scope.updateSelected);
+    console.log(value);
+    /*if ($scope.updateSelected=="3") {
+
+    }*/
   }
 
   $scope.updateMembers = function() {
