@@ -1,3 +1,32 @@
+@font-face {
+  font-family: "CoC";
+  src: url('../font/Supercell-magic-webfont.ttf');
+}
+
+header {
+  background-color: #3177FF;
+  height: 3vw;
+  padding: 0vw 4vw;
+}
+
+section {
+  padding: 2vw 4vw;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 1.5vw;
+  margin: 0;
+  padding: 0 1vw;;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: CoC,sans-serif;
+  color: white;
+}
+
 .container {
   width: 100%;
   font-size: 0;

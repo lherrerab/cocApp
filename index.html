@@ -10,49 +10,72 @@
 </head>
 <body ng-app="cocApp">
   <div class="container" ng-controller="mainCtrl">
-    <div class="divTable">
-        <table class="tbMembers">
+    <header>
+      <button style="height:100%; display: inline-block; border:0; vertical-align: middle;background-color:transparent;" type="button">
+        <img style="height:100%; display:inline-block; vertical-align: middle;" src="img/menu.png">
+      </button>
+      <img style="height:100%; display:inline-block; vertical-align: middle;" src="img/symbol.png">
+      <h1> KAER TROLDE</h1>
+    </header>
+    <section>
+      <div class="divTable">
+          <table class="tbMembers">
+            <tr>
+              <th colspan="8">PLAYERS</th>
+            </tr>
+            <tr>
+              <th style="width:5%;">Order</th>
+              <th style="width:20%;">Player</th>
+              <th style="width:10%;">Role</th>
+              <th style="width:10%;">Town Hall</th>
+              <th style="width:15%;">Donations</th>
+              <th style="width:20%;">Donations Received</th>
+              <th style="width:10%;">Joined on</th>
+              <th style="width:10%;">Options</th>
+            </tr>
+            <tr ng-repeat="member in members">
+              <td>{{$index+1}}</td>
+              <td>{{member.name}}</td>
+              <td>{{member.role}}</td>
+              <td>{{member.th}}</td>
+              <td>{{member.donations}}</td>
+              <td>{{member.donationsReceived}}</td>
+              <td>{{member.joinedOn}}</td>
+              <td>
+                <button class="btnAdd" value="0" type="button" ng-click="addWarMember(member.tag,member.name,member.th)">Add</button>
+              </td>
+            </tr>
+          </table>
+      </div>
+      <div class="divWar">
+        <table class="tbWar">
           <tr>
-            <th style="width:5%;">Order</th>
-            <th style="width:20%;">Player</th>
-            <th style="width:10%;">Role</th>
-            <th style="width:10%;">Town Hall</th>
-            <th style="width:15%;">Donations</th>
-            <th style="width:20%;">Donations Received</th>
-            <th style="width:10%;">Joined on</th>
-            <th style="width:10%;">Options</th>
+            <th colspan="2">WARS</th>
           </tr>
-          <tr ng-repeat="member in members">
-            <td>{{member.clanRank}}</td>
-            <td>{{member.name}}</td>
-            <td>{{member.role}}</td>
-            <td>{{member.th}}</td>
-            <td>{{member.donations}}</td>
-            <td>{{member.donationsReceived}}</td>
-            <td>25/11/2016</td>
+          <tr>
+            <th>Player ({{warMembers.length}})</th>
+            <th>Town Hall </th>
+          </tr>
+          <tr ng-repeat="warMember in warMembers track by $index">
+            <td>{{warMember.name}}</td>
+            <td>{{warMember.th}}</td>
             <td>
-              <button type="button" ng-click="addWarMember(member.name,member.th)">Add</button>
+              <button ng-click="removeWarMember($index)">X</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <button ng-click="createWar()">Create</button>
+              <button ng-click="cancelWar()">Cancel</button>
+              <button ng-click="saveWar()">Save</button>
             </td>
           </tr>
         </table>
-    </div>
-    <div class="divWar">
-      <table class="tbWar">
-        <tr>
-          <th>Player ({{warMembers.length}})</th>
-          <th>Town Hall </th>
-        </tr>
-        <tr ng-repeat="warMember in warMembers track by $index">
-          <td>{{warMember.name}}</td>
-          <td>{{warMember.th}}</td>
-          <td>
-            <button ng-click="removeWarMember($index)">X</button>
-          </td>
-        </tr>
-      </table>
-    </div>
+      </div>
+    </section>
   </div>
 </body>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
 <script type="text/javascript" src="js/coc.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </html>

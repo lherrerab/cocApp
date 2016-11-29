@@ -3,88 +3,90 @@ angular.module('cocApp', [])
 
   $scope.warMembers = [];
 
-  $scope.addWarMember = function(player,th){
-    var warMember = {'name':player,'th':th};
+  $scope.addWarMember = function(tag,player,th){
+    var warMember = {'tag':tag,'name':player,'th':th};
     $scope.warMembers.push(warMember);
   }
 
   $scope.removeWarMember = function(index){
-    $scope.warMembers.splice(index,1);
+      $scope.warMembers.splice(index,1);
   }
 
-  $scope.receiveClanTable = function () {
-    var params = "service=getClanTable";
-    var url = 'http://localhost/CoC/cocAPI.php?'+params;
-    /*$scope.members = [
-        {
-          clanRank: 1,
-          donations: 1713,
-          donationsReceived: 606,
-          name: "JuanDa",
-          role: "leader",
-          th: 9
-        },
-        {
-          clanRank: 2,
-          donations: 586,
-          donationsReceived: 60,
-          name: "king frankie",
-          role: "member",
-          th: 9
-        },
-        {
-          clanRank:3,
-          donations:961,
-          donationsReceived:459,
-          name:"Dreymax",
-          role:"coLeader",
-          th:7
-        },
-        {
-          clanRank:4,
-          donations:218,
-          donationsReceived:41,
-          name:"⏪Blade⏩",
-          role:"admin",
-          th:9
-        },
-        {
-          clanRank:5,
-          donations:24,
-          donationsReceived:191,
-          name:"THE PRINCE",
-          role:"member",
-          th:8
-        },
-        {
-          clanRank:6,
-          donations:22,
-          donationsReceived:50,
-          name:"Zekrom",
-          role:"member",
-          th:8
-        },
-        {
-          clanRank:7,
-          donations:130,
-          donationsReceived:147,
-          name:"Abejorge",
-          role:"member",
-          th:9
-        },
-        {
-          clanRank:8,
-          donations:488,
-          donationsReceived:499,
-          name:"theking",
-          role:"admin",
-          th:8
-        }];*/
-    $http.get(url)
+  $scope.getWarMembers = function() {
+    var url = 'http://localhost/CoC/cocAPI.php';
+    var data = { service:'getWarMembers'};
+    var config = {headers: {
+     'Content-Type': 'application/x-www-form-urlencoded'
+     }};
+
+    $http.post(url,data,config)
+    .then(function(response) {
+      $scope.warMembers = response.data;
+    },
+    function(error) {
+      console.log(error);
+    });
+  }
+
+  $scope.saveWar = function(){
+    console.log($scope.warMembers);
+    var url = 'http://localhost/CoC/cocAPI.php';
+    var data = { service:'saveWarMembers',params: $scope.warMembers };
+    var config = {headers: {
+     'Content-Type': 'application/x-www-form-urlencoded'
+     }};
+
+    $http.post(url,data,config)
+      .then(function(response) {
+        console.log(response);
+      },
+      function(error) {
+        console.log(error);
+      });
+  }
+
+  $scope.createWar = function(){
+    if(confirm("Do you want to create a war?")) {
+      console.log("Created");
+    }
+  }
+
+  $scope.cancelWar = function(){
+    if(confirm("Do you want to delete candidates?")) {
+      $scope.warMembers = [];
+    }
+  }
+
+  $scope.updateMembers = function() {
+    var url = 'http://localhost/CoC/cocAPI.php';
+    var data = { service:'updateMembers'};
+    var config = {headers: {
+     'Content-Type': 'application/x-www-form-urlencoded'
+     }};
+
+    $http.post(url,data,config)
         .then(
           function(response) {
             console.log(response);
-            $scope.members = response.data.data;
+          },
+          function(error) {
+            console.log(error);
+          }
+        );
+  }
+
+  $scope.receiveClanTable = function () {
+    var url = 'http://localhost/CoC/cocAPI.php';
+    var data = { service:'getClanTable'};
+    var config = {headers: {
+     'Content-Type': 'application/x-www-form-urlencoded'
+     }};
+
+    $http.post(url,data,config)
+        .then(
+          function(response) {
+            console.log(response.data);
+            $scope.members = response.data;
           },
           function(error) {
             console.log(error);
@@ -93,5 +95,6 @@ angular.module('cocApp', [])
   }
 
   $scope.receiveClanTable();
+  $scope.getWarMembers();
 
 });
