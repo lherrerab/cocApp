@@ -33,13 +33,13 @@ h1 {
 }
 
 .divTable {
-  width: 60%;
+  width: 70%;
   display: inline-block;
   vertical-align: top;
 }
 
 .divWar {
-  width: 40%;
+  width: 30%;
   display: inline-block;
   vertical-align: top;
 }
@@ -64,4 +64,9 @@ td {
   font-size: 1vw;
   text-align: center;
   font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.btnAdd {
+  font-size: 0.8vw;
+  vertical-align: middle;
 }

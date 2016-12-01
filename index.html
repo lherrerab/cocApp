@@ -27,8 +27,9 @@
               <td colspan="8" style="text-align:left;">
                 <label>Choose</label>
                 <select ng-model="updateSelected">
-                  <option value="1">Yellow Flag</option>
-                  <option value="2">Red Flag</option>
+                  <option value="#FFFFFF">White Flag</option>
+                  <option value="#F1FF23">Yellow Flag</option>
+                  <option value="#FF4F46">Red Flag</option>
                   <option value="3">Add to War</option>
                 </select>
                 <button type="button" ng-click="updateFlags()">Update</button>
@@ -41,12 +42,12 @@
               <th style="width:10%;">Role</th>
               <th style="width:10%;">Town Hall</th>
               <th style="width:15%;">Donations</th>
-              <th style="width:20%;">Donations Received</th>
+              <th style="width:15%;">Donations Received</th>
               <th style="width:10%;">Joined on</th>
-              <th style="width:10%;">Options</th>
+              <th style="width:15%;">Options</th>
             </tr>
-            <tr ng-repeat="member in members">
-              <td><input type="checkbox" ng-changed></td>
+            <tr style="background-color:{{member.color}}" ng-repeat="member in members">
+              <td><input type="checkbox" ng-click="updateCheckBoxes(member.tag)"></td>
               <td>{{$index+1}}</td>
               <td>{{member.name}}</td>
               <td>{{member.role}}</td>
@@ -55,7 +56,10 @@
               <td>{{member.donationsReceived}}</td>
               <td>{{member.joinedOn}}</td>
               <td>
-                <button class="btnAdd" value="0" type="button" ng-click="addWarMember(member.tag,member.name,member.th)">Add</button>
+                <button class="btnAdd" value="0" type="button" ng-click="addWarMember(member.tag,member.name,member.th)">AW</button>
+                <button class="btnAdd" type="button" ng-click="updateFlag(member.tag,'#F1FF23')">Y</button>
+                <button class="btnAdd" type="button" ng-click="updateFlag(member.tag,'#FF4F46')">R</button>
+                <button class="btnAdd" type="button" ng-click="updateFlag(member.tag,'#FFFFFF')">W</button>
               </td>
             </tr>
           </table>

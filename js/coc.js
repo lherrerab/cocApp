@@ -1,4 +1,4 @@
-angular.module('cocApp')
+angular.module('cocApp',[])
 .controller('mainCtrl', function($scope, $http){
 
   $scope.warMembers = [];
@@ -58,12 +58,48 @@ angular.module('cocApp')
     }
   }
 
-  $scope.updateFlags = function(value){
-    //console.log($scope.updateSelected);
-    console.log(value);
-    /*if ($scope.updateSelected=="3") {
+  $scope.updateCheckBoxes = function(value){
+    var flag = false;
 
-    }*/
+    for (var i = 0; i < $scope.boxUpdates.length; i++) {
+      if($scope.boxUpdates[i] == value){
+        flag = true;
+        break;
+      }
+    }
+
+    if(!flag){
+      $scope.boxUpdates.push(value);
+    }
+    else{
+      $scope.boxUpdates.splice(i,1);
+    }
+  }
+
+  $scope.updateFlags = function(){
+    if ($scope.updateSelected ==="#FF4F46" || $scope.updateSelected ==="#F1FF23" || $scope.updateSelected ==="#FFFFFF") {
+      var url = 'http://localhost/CoC/cocAPI.php';
+      var data = { service:'changeColor',params: $scope.boxUpdates, color: $scope.updateSelected};
+      var config = {headers: {
+       'Content-Type': 'application/x-www-form-urlencoded'
+       }};
+
+      $http.post(url,data,config)
+        .then(function(response) {
+          $scope.members = response.data;
+          $scope.boxUpdates = [];
+        },
+        function(error) {
+          console.log(error);
+        });
+    }
+  }
+
+  $scope.updateFlag = function(tag,color){
+    $scope.updateSelected = color;
+    $scope.boxUpdates.push(tag);
+    console.log($scope.boxUpdates);
+    $scope.updateFlags();
   }
 
   $scope.updateMembers = function() {

@@ -26,6 +26,9 @@
    if($service == "getWarMembers"){
      getWarMembers();
    }
+   if($service == "changeColor"){
+     changeColor();
+   }
   }
 
   updateMembers();
@@ -79,6 +82,24 @@
   function getClanMembers(){
     $response = callAPIClanMembers();
 		deliver_response(200, "Done", $response['items']);
+  }
+
+  function changeColor(){
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+    @$params = $request->params;
+    @$color = $request->color;
+
+    $link = mysqli_connect('localhost', 'root', '', 'coc')
+        or die('No se pudo conectar: ' . mysql_error());
+
+    foreach ($params as $key => $param) {
+      $query = "UPDATE players SET Color_Flag = '".$color."' WHERE Tag ='".$param."'";
+      mysqli_query($link, $query);
+    }
+
+    getClanTable();
+
   }
 
   function saveWarMembers(){
@@ -216,6 +237,7 @@
       $row_array['donations'] = $row['Donations'];
       $row_array['donationsReceived'] = $row['Donations_Received'];
       $row_array['joinedOn'] = $row['Joined_On'];
+      $row_array['color'] = $row['Color_Flag'];
       array_push($return_arr,$row_array);
     }
 
